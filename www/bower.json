@@ -1,0 +1,16 @@
+{
+  "name": "Blog quetzatlcoatl",
+  "version": "1.0.0",
+  "authors": [
+    "jcpc91"
+  ],
+  "description": "blog",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
