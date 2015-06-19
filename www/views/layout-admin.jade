@@ -1,0 +1,73 @@
+doctype html(lang='en')
+head
+    meta(charset='utf-8')
+    |     
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    |     
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    |     
+    meta(name='description', content='')
+    |     
+    meta(name='author', content='')
+    |     
+    title SB Admin 2 - Bootstrap Admin Theme
+    // Bootstrap Core CSS
+    link(href='/bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
+    // MetisMenu CSS
+    link(href='/metisMenu/dist/metisMenu.min.css', rel='stylesheet')
+    // Custom CSS
+    link(href='/css/sb-admin-2.css', rel='stylesheet')
+    
+    // Custom Fonts
+    link(href='/font-awesome/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+    // HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+    // WARNING: Respond.js doesn't work if you view the page via file://
+    //if lt IE 9
+      script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+      |         
+      script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
+    block _styles
+  body
+    #wrapper
+      // Navigation
+      nav.navbar.navbar-default.navbar-static-top(role='navigation', style='margin-bottom: 0')
+        .navbar-header
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+            span.sr-only Toggle navigation
+            |                     
+            span.icon-bar
+            |                     
+            span.icon-bar
+            |                     
+            span.icon-bar
+          |                 
+          a.navbar-brand(href='/private') SB Admin v2.0
+        // /.navbar-header
+        ul.nav.navbar-top-links.navbar-right
+          include ./includes/navbar-top.jade
+        .navbar-default.sidebar(role='navigation')
+            include ./includes/navbar-default_sidebar.jade
+        // /.navbar-static-side
+      |         
+      #page-wrapper
+        block _content
+      // /#page-wrapper
+    // /#wrapper
+    // jQuery
+    script(src='/jquery/dist/jquery.min.js')
+    
+    //por  un conflicto entre jquerymy y bootstrap
+    //en la linea
+    //jquerymy.js 3522: juerymy: $.fn.modal = function (obj0, done0, width0) {
+    //bootstrap.js 1208: $.fn.modal             = Plugin
+    block _scriptjquery
+    // Bootstrap Core JavaScript
+    script(src='/bootstrap/dist/js/bootstrap.js')
+    // Metis Menu Plugin JavaScript
+    script(src='/metisMenu/dist/metisMenu.min.js')
+    // Init
+    script(src='/js/sb-admin-2.js')
+    
+    block _script
+    
+    
