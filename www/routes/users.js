@@ -9,10 +9,11 @@ var moment = require('moment');
 var router = express.Router();
 
 router.use(function(req, res, next){
-    console.log(req.session);
-    console.log(req.user);
-    console.log(req.account);
-    next();
+    
+    if(!req.isAuthenticated())
+            res.redirect('/login');
+    
+   next();
 });
 
 /* GET posts. private/ */
@@ -152,10 +153,6 @@ router.get('/posts/page/:page', function (req, res, next) {
         });
 });
 
-router.get('/login', function(req, res, next){
-    
-    res.render('login');
-});
 
 router.get('/logout', function(req, res, next){
     console.log('logout');

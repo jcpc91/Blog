@@ -12,7 +12,7 @@ var multer = require('multer');
 var session = require('express-session');
 var passport = require('passport');
 var twitterStrategy = require('passport-twitter').Strategy;
-
+var Usuario = require('./models/User');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -49,39 +49,60 @@ app.use('/', routes);
 app.use(['/private', '/user'], users);
 app.use('/private/imagenes', img);
 
-passport.use('twitter-authz', new twitterStrategy({
+passport.use(new twitterStrategy({
     consumerKey: 'hcuWkDLfy5QGyhHYFWu4kaqHp',
     consumerSecret: 'MuBZMXB6XIX95usnOCXdZ8v5GI7A9vWUT85EnXw8Jqt6i83Xve',
     callbackURL: 'http://localhost:3000/auth/twitter/callback'
 }, function(token, tokensecret, profile, done){
-    console.info('twitterStrategy');
-    console.log(token);
-    console.log(tokensecret);
-    console.log(profile);
-    done(null, profile.username);
+    
+    
+    
+    var user = new Usuario().validar(profile);
+    
+    
+    user.find(function (err, data) {
+      
+      if(err)  return done(err);
+      
+      if(data != undefined && data.length > 0){
+        var u = data[0];
+        
+        if(!u.access) 
+          return done(null, false, {message: 'No tiene permiros para acceder'});
+        
+        return done(null, u);
+        
+      } else{
+        return done(null, false, {message: 'Nombre de usuario no registrado'});
+      }
+        
+     
+    });
+    
+    
 }));
 
 passport.serializeUser(function(user, done) {
-    console.info('serializeUser');
-    console.log(user);
+    
   done(null, user);
 });
 
 passport.deserializeUser(function(user, done) {
-    console.info('deserializeUser');
-    console.log(user);
-  done(null, user);
+    
+    done(null, user);
 });
 
 
-app.get('/auth/twitter', passport.authorize('twitter-authz'));
+app.get('/auth/twitter', passport.authenticate('twitter'));
 
 app.get('/auth/twitter/callback', 
-        passport.authorize('twitter-authz', {successRedirect: '/private/', failureRedirect: '/login'}),
-        function(req, res, next){
-            console.log('account: ' + req.account);
-            next();
-        });
+        passport.authenticate('twitter', 
+          	{successRedirect: '/private', failureRedirect: '/login'}));
+
+app.get('/login', function(req, res, next){
+  console.log(req.path);
+  res.render('login');
+});
 
 mongoose.connect('mongodb://localhost/blog', function(err){
     if(err)
