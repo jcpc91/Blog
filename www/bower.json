@@ -26,6 +26,7 @@
     "momentjs": "~2.10.2",
     "bootstrap-datepicker": "~1.4.0",
     "summernote": "~0.6.13",
-    "select2": "~4.0.0"
+    "select2": "~4.0.0",
+    "sugar": "~1.4.1"
   }
 }
