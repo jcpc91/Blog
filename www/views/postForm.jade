@@ -1,0 +1,73 @@
+extends layout-admin
+block _styles
+    link(href="/bootstrap-datepicker/dist/css/bootstrap-datepicker.css", rel="stylesheet")
+    link(href="/summernote/dist/summernote.css", rel="stylesheet")
+    link(href="/select2/dist/css/select2.css", rel="stylesheet")
+    
+    script(type="text/javascript").
+        var post = !{JSON.stringify(post)}
+        
+block _content
+    form(role="form", method="post", action="/private/post/")
+        input(id="lang", type="hidden", value="#{lang}")
+        input(id="cmd", name="cmd", type="hidden", value="#{cmd}")
+        input(id="id", name="id", type="hidden", value=post._id)
+        input(id="status", name="status", type="hidden", value="#{post.publish}")
+        .row
+            .col-lg-12
+                
+                h1.page-header Nuevo post
+                    .btn-group.pull-right(role="group", aria-label="...")
+                        button.btn.btn-primary(id="aceptar", type="submit", name="insert") Guardar
+                        a.btn.btn-default.close-post(href="/private/") Cerrar
+
+        .row
+            .col-xs-12
+
+                input(id="thtml", type="hidden", name="html", value=post.html)
+                .row
+                    .col-md-8.col-xs-12
+                        .form-group
+                            label Título del post
+                            input.form-control(id="ttitulo", type="text", name="titulo")
+                        .form-group
+                            label Introducción
+                            input.form-control(id="tintro", type="text", name="introduccion")
+                        .form-group
+                            textarea.form-control(id="tcont", rows="10")
+                        .form-group
+                    .col-md-4.col-xs-12
+                        .form-group
+                            label Fecha
+                            input.form-control(id="tfecha", type="text", name="fecha")
+                        .form-group
+                            label Tags
+                            select.form-control(id="tags", data-tags="true", multiple="multiple", name="tags" )
+                                if post.tags
+                                    each tag in post.tags
+                                        option(value="#{tag}", selected="selected") #{tag}
+                        .form-group
+                            if post.publish
+                                button.btn.btn-default.btn-block(id="bpublish", name="publish", type="submit", value="0")
+                                    i.fa.fa-eye-slash Despublicar
+                            else
+                                button.btn.btn-primary.btn-block(id="bpublish", name="publish", type="submit", value="1")
+                                    i.fa.fa-eye  Publicar
+                            button.btn.btn-danger.btn-block(id="bDelete", type="submit")
+                                i.fa.fa-trash-o  Eliminar
+
+block _scriptjquery
+    script(src="/sugar/release/sugar.min.js", type="text/javascript")
+    script(src="/jquerymy/jquerymy.js", type="text/javascript")
+ 
+block _script
+    script(src="/bootstrap-datepicker/js/bootstrap-datepicker.js", type="text/javascript")
+    if lang == 'es-es'
+        script(type="text/javascript", src="/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js")
+    script(src="/summernote/dist/summernote.js", type="text/javascript")
+    script(src="/select2/dist/js/select2.js", type="text/javascript")
+    script(src="/momentjs/min/moment.min.js", type="text/javascript")
+    script(src="/js/sb-admin-2-post.js", type="text/javascript")
+    
+    
+    

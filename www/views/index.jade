@@ -1,5 +1,19 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  -each p in post
+    .post-preview
+      a(href="/post/#{p._id}")
+        h2.post-title #{p.titulo}
+        h3.post-subtitle #{p.introduccion}
+       p= moment(p.fecha)
+       hr
+  ul.pager
+    li.previous
+      if pager.current > 1
+        a(href="/page/#{pager.pre}") Anterior
+      
+      
+    li.next
+      if count == 5
+        a(href="/page/#{pager.next}") Siguiente
