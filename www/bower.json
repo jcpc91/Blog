@@ -23,6 +23,9 @@
     "datatables-responsive": "~1.0.3",
     "bootstrap-social": "~4.8.0",
     "flot.tooltip": "~0.8.4",
-    "momentjs": "~2.10.2"
+    "momentjs": "~2.10.2",
+    "bootstrap-datepicker": "~1.4.0",
+    "summernote": "~0.6.13",
+    "select2": "~4.0.0"
   }
 }
