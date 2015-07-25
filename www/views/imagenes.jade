@@ -1,0 +1,39 @@
+extends layout-admin
+block _styles
+
+block _content
+	form(role="form", method="post", action="/private/imagenes", enctype="multipart/form-data")
+		input(id="cmd", name="cmd", type="hidden")
+		.row
+			.col-lg-12
+				h1.page-header Administración de imágenes
+					.btn-group.pull-right(role="group", aria-lable="...")
+						button.btn.btn-danger(id="cdmeliminar", type="submit") Elimnar
+		.row
+			.col-lg-12
+				table.table.table-hover
+					thead
+						tr
+							th
+							th Nombre
+					tbody
+						- each i in img
+							tr
+								td
+									input(type="checkbox", name="imagen[]", value="#{i._id}")
+								td
+									a(href="#{i.link}", target="_blank") #{i.nombreOriginal}
+						
+						
+					tfoot
+						tr
+							td(colspan="2")
+								.btn-group(role="group", aria-lable="...")
+									input.btn(name="imagen", type="file")
+									input.btn.btn-default(id="cmdsave", type="submit", value="Guardar")
+									
+							
+block _scriptjquery
+
+block _script
+	script(src="/js/sb-admin-imagen.js", type="text/javascript")
